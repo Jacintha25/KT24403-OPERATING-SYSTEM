@@ -1,0 +1,182 @@
+#include <stdio.h>
+#include <string.h>
+#include <conio.h>
+
+struct order{
+    int order_number;
+    int number_of_food;
+    double cost;
+}p[10000];
+int order_count = 0, served_count = 0;
+
+int order ()
+{
+	/*Declaring variables*/
+	char cus_name[20], order_names[10];
+	int table_num, total_item_count, item_code, quantity_code;
+	double Total, payment, change;
+	
+	printf("\nPlease enter your name: %s", cus_name);
+	//get string input.Note that we are not using &cus_name here
+	scanf("%s", cus_name);
+	
+	printf("Please enter table number: ");
+	//reads and stores input
+	scanf("%d", &table_num);
+	
+	//print the customer's name
+	printf("\nHello %s " , cus_name );
+	
+	menu ();
+	
+    p[order_count].number_of_food = total_item_count;
+    p[order_count].cost = 0;
+    p[order_count].number_of_food = 0;
+	
+	level:
+    printf ("\nHow many items you want to order? ");
+    scanf ("%d", &total_item_count);
+	
+	getchar ();
+	while (total_item_count--){
+        printf("\nPlease enter chosen item's code :");
+		scanf("%d", &item_code);
+		//the getchar() function can be used to read character char with white spaces
+		getchar ();
+		
+		switch (item_code)
+		{
+			case 1:{
+
+				printf("\nPlease enter the quantity: ");
+				scanf("%d", &quantity_code);
+				getchar ();
+				
+				printf("\n[1] Acai Bowl x %d    \t\t\t", quantity_code);
+				Total = quantity_code*5;
+				printf("RM %5.2f\n", Total);
+				
+				p[order_count].number_of_food +=quantity_code;
+				p[order_count].cost += (quantity_code*5);
+				
+			
+				break;
+			}
+			
+			case 2:{
+				printf("\nPlease enter the quantity: ");
+				scanf("%d", &quantity_code);
+				getchar ();
+				
+				printf("\n[2] Avacado Toast x %d \t\t\t", quantity_code);
+				Total = quantity_code*2.5;
+				printf("RM %5.2f\n", Total);
+				
+				p[order_count].number_of_food +=quantity_code;
+				p[order_count].cost += (quantity_code*2.5);
+			
+				break;
+			}
+			
+			case 3:{
+				printf("\nPlease enter the quantity: ");
+				scanf("%d", &quantity_code);
+				getchar ();
+				
+				printf("\n[3] Coffee  x %d       \t\t\t", quantity_code);
+				Total = quantity_code*5;
+				printf("RM %5.2f\n", Total);
+				
+				p[order_count].number_of_food +=quantity_code;
+				p[order_count].cost += (quantity_code*5);
+			
+				break;
+			}
+			
+			case 4:{
+				printf("\nPlease enter the quantity: ");
+				scanf("%d", &quantity_code);
+				getchar ();
+				
+				printf("\n[4] Tea x %d          \t\t\t", quantity_code);
+				Total = quantity_code*3;
+				printf("RM %5.2f\n", Total);
+				
+				p[order_count].number_of_food +=quantity_code;
+				p[order_count].cost += (quantity_code*3);
+		
+				break;
+			}
+			
+			default : {
+	        printf ("Invalid selection. Please try again\n");
+	        total_item_count++;
+	    	}
+    	}
+	}
+    char temp;
+    printf ("Do you want to order anything else?(y/n)\n ");
+    scanf ("%c", &temp);
+    if (temp == 'y' || temp == 'Y')
+        goto level;
+    printf ("\nNumber of food ordered %d\n", p[order_count].number_of_food);
+    printf("------------------------------------------------");
+    printf ("\nTOTAL                \t\t\tRM %5.2f", p[order_count].cost);
+	printf("\n------------------------------------------------");
+	
+	//ask user to pay
+	printf("\nPAYMENT               \t\t\tRM ");
+	scanf("%lf", &payment);
+	getchar();
+	
+	//
+	
+	change = payment - p[order_count].cost;
+	
+	printf("\nCHANGE                \t\t\tRM %5.2f", change);
+	
+		
+    printf ("\n\nThank you for your order.");
+	printf("\nPlease wait while we prepare the food.\n\n", p[order_count].cost);
+    
+	order_count ++;
+
+}
+
+
+//FIRST FUNCTION
+void menu ()
+{
+		printf("\n\t\tMENU");
+		printf("\n=========================================");
+		printf("\nCODE      NAME                 PRICE");
+		printf("\n=========================================");
+		printf("\n[1]   Acai Bowl               RM5.00");
+		printf("\n[2]   Avocado Toast           RM2.50");
+		printf("\n[3]   Coffee                  RM5.00");
+		printf("\n[4]   Tea                     RM3.00");
+		printf("\n=========================================");
+}
+
+int main()
+{
+	printf("\t\tWELCOME TO SUNNY CAFE\n\n");
+	while (1){
+        printf ("1. Order\n2. Exit\n");
+
+        int page;
+        scanf ("%d", &page);
+        getchar ();
+        switch (page){
+            case 1 : {
+                order ();
+                break;
+            }
+            case 2 : {
+            	printf ("\nHAVE A NICE DAY. PLEASE COME AGAIN! <3");
+            	return 0;
+				break;
+			}
+            }
+    	}
+}
